@@ -223,3 +223,9 @@ matrix operator/(matrix a , matrix b){
     }
     return c;
 }
+
+int main(){
+    matrix mat(5,5);
+    mat.fill(5);
+    mat.print();
+}
