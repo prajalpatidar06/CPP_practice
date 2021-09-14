@@ -134,11 +134,92 @@ void matrix::print()
     }
 }
 
-int main()
-{
-    matrix mat(5, 5, 'i');
-    mat.fill(6);
-    mat.print();
-    cout << mat.get(4, 4);
-    return 0;
+void matrix::operator=(matrix temp){
+    mat = temp.mat;
+    rows = temp.rows;
+    cols = temp.cols;
+}
+
+bool matrix::operator==(matrix temp){
+    if(rows != temp.rows || cols != temp.cols)
+        return false;
+    
+    for(ll i = 0 ; i < rows ; i++)
+        for(ll j = 0 ; j < cols ; j++)
+            if(mat[i][j] != temp.mat[i][j])
+                return false;
+    return true;
+}
+
+// bool matrix::operator>(matrix temp);
+// bool matrix::operator<(matrix temp);
+// bool matrix::operator>=(matrix temp);
+// bool matrix::operator<=(matrix temp);
+
+matrix operator+(matrix a , matrix b){
+    matrix c(max(a.rows , b.rows) , max(a.cols , b.cols));
+    try{
+        if(a.rows == b.rows && a.cols == b.cols)
+            for(ll i = 0 ; i < c.rows ; i++)
+                for(ll j = 0 ; j < c.cols ; j++)
+                    c.mat[i][j] = a.mat[i][j] + b.mat[i][j];
+        else
+            throw "exception";
+    }
+    catch(...){
+        cout<<"Error: could not apply arithematic operation on matrixes have diffrrent dimension.\n";
+    }
+    return c;
+}
+
+matrix operator-(matrix a , matrix b){
+    matrix c(max(a.rows , b.rows) , max(a.cols , b.cols));
+    try{
+        if(a.rows == b.rows && a.cols == b.cols)
+            for(ll i = 0 ; i < c.rows ; i++)
+                for(ll j = 0 ; j < c.cols ; j++)
+                    c.mat[i][j] = a.mat[i][j] - b.mat[i][j];
+        else
+            throw "exception";
+    }
+    catch(...){
+        cout<<"Error: could not apply arithematic operation on matrixes have diffrrent dimension.\n";
+    }
+    return c;
+}
+
+matrix operator*(matrix a , matrix b){
+    matrix c(a.rows , b.cols);
+    try{
+        if(a.cols == b.rows){
+            for(ll i = 0 ; i < c.rows ; i++)
+                for(ll j = 0 ; j < c.cols ; j++)
+                    for(ll k = 0 ; k < a.cols ; k++)
+                        c.mat[i][j] += a.mat[i][k] * b.mat[k][j];
+        }
+        else 
+            throw "exception";
+    }
+    catch(...){
+        cout<<"Error: could not apply arithematic operation on matrixes have diffrrent dimension.\n";
+    }
+    return c;
+}
+
+matrix operator/(matrix a , matrix b){
+    matrix c(a.rows , b.cols);
+    try{
+        if(a.cols == b.rows){
+            for(ll i = 0 ; i < c.rows ; i++)
+                for(ll j = 0 ; j < c.cols ; j++)
+                    for(ll k = 0 ; k < a.cols ; k++)
+                        c.mat[i][j] += a.mat[i][k] / b.mat[k][j];
+        }
+        else 
+            throw "exception";
+    }
+    catch(...){
+        cout<<"Error: could not apply arithematic operation on matrixes have diffrrent dimension.\n";
+    }
+    return c;
 }
