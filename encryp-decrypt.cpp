@@ -1,17 +1,43 @@
-#include<iostream>
-using namespace std;
-int main(){
-    string x;
-    char seed;
-    cin>>x>>seed;
+#include <iostream>
+#include<windows.h>
+#include<fstream>
 
-    string y = "";
-    char K = '\0';
-    for(int i = 0 ; i < x.size() ; i++){
-        // seed = (K == 0) ? seed : char((seed + K)%8);
-        y += char(x[i] ^ seed) + '\0';
-        // K = y[i];
-    }
-    cout<<y<<"\n";
-    return 0;
+using namespace std;
+
+int main()
+{
+	int i, x;
+	char str[100];
+
+	cout << " enter a string for encryption/decryption\t";
+	cin >> str;
+
+	cout << "\n choose following options:\n";
+	cout << "1 = Encrypt the string.\n";
+	cout << "2 = Decrypt the string.\n";
+	cin >> x;
+
+	//using switch case statements
+	switch (x)
+	{
+		//first case for encrypting a string
+	case 1:
+		for (i = 0; (i < 100 && str[i] != '\0'); i++)
+			str[i] = str[i] + 2; //the key for encryption is 3 that is added to ASCII value
+
+		cout << "\nEncrypted string: " << str << endl;
+		break;
+
+		//second case for decrypting a string
+	case 2:
+		for (i = 0; (i < 100 && str[i] != '\0'); i++)
+			str[i] = str[i] - 2; //the key for encryption is 3 that is subtracted to ASCII value
+
+		cout << "\nDecrypted string: " << str << endl;
+		break;
+
+	default:
+		cout << "\nInvalid Input !!!\n";
+	}
+	return 0;
 }
