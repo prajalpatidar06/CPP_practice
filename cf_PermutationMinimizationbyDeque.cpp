@@ -1,5 +1,7 @@
 // link: https://codeforces.com/contest/1579/problem/E1
 #include<iostream>
+#include<deque>
+
 using namespace std;
 int main(){
     int t;
@@ -7,18 +9,18 @@ int main(){
     while(t--){
         int n;
         cin>>n;
-        string s = "";
-        char inp;
+       deque<int>s;
+        int inp;
         while(n--){
             cin>>inp;
-            if(s == ""){
-                s = inp;
+            if(s.empty()){
+                s.push_back(inp);
                 continue;
             }
-            if(inp > s[0]){
-                s = s + inp;
+            if(inp > s.front()){
+                s.push_back(inp);
             }else{
-                s = inp + s;
+                s.push_front(inp);
             }
         }
         
