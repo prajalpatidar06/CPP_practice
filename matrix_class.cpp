@@ -36,6 +36,14 @@ public:
     friend matrix operator/(matrix a, matrix b);
 
     // Some build in functions
+    ll determinant(){
+        if(rows != cols){
+            cout<<"Determinant cant be calculate for non- square matrix...";
+            return 0;
+        }
+        return determinant(mat);
+    }
+    ll determinant(vector<vector<ll>>B);
     friend matrix transpose();
     friend matrix adjoint();
     friend matrix inverse();
@@ -222,6 +230,29 @@ matrix operator/(matrix a , matrix b){
         cout<<"Error: could not apply arithematic operation on matrixes have diffrrent dimension.\n";
     }
     return c;
+}
+
+ll matrix::determinant(vector<vector<ll>> B){
+    ll _size = B.size();
+    if(_size == 1)
+        return B[0][0];
+    if(_size == 2)
+        return B[0][0]*B[1][1] - B[0][1]*B[1][0];
+
+    ll result = 0;
+    for(ll itr = 0 ; itr < _size ; itr++){
+        vector<vector<ll>>help;
+        for(ll _r = 1 ; _r < _size ; _r++){
+            vector<ll>temp;
+            for(ll _c = 0 ; _c < _size ; _c++){
+                if(itr != _c)
+                    temp.push_back(B[_r][_c]);
+            }
+            help.push_back(temp);
+        }
+        result = (itr&1) ? B[0][itr]*determinant(help)*(-1) : B[0][itr]*determinant(help);
+    }
+    return result;
 }
 
 int main(){
