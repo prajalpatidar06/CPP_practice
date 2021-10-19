@@ -60,7 +60,7 @@ void print(node *start)
 }
 
 // Insert AFTER A Given Node
-node *insaft(node *start)
+node *insaft(node *start)gp
 {
     node *temp, *aft;
     int dataval, item;
